@@ -5,7 +5,7 @@ const Service = require("egg").Service;
 class BlockService extends Service {
   async getBlockList({ page, row }) {
     const offset = (page - 1) * row;
-    const res = await this.app.model.Block.findAll({
+    const res = await this.app.model.Block.findAndCountAll({
       offset,
       limit: row,
       order: [["block_num", "DESC"]],
