@@ -2,7 +2,7 @@
 
 const Controller = require("egg").Controller;
 
-class HomeController extends Controller {
+class BlockController extends Controller {
   async getBlocks() {
     let row = +this.ctx.query.row || 25;
     if (row > 200) {
@@ -32,4 +32,4 @@ class HomeController extends Controller {
   }
 }
 
-module.exports = HomeController;
+module.exports = BlockController;

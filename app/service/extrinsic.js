@@ -3,11 +3,14 @@
 const Service = require("egg").Service;
 
 class ExtrinsicService extends Service {
-  async getExtrinsicList({ page, row }) {
+  async getExtrinsicList({ page, row, signed }) {
     const offset = (page - 1) * row;
     const res = await this.app.model.Extrinsic.findAndCountAll({
       offset,
       limit: row,
+      where:{
+        signed
+      },
       order: [["block_num", "DESC"]]
     });
     return res;

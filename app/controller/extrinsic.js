@@ -10,7 +10,8 @@ class ExtrinsicController extends Controller {
     }
     const { rows, count } = await this.ctx.service.extrinsic.getExtrinsicList({
       page: +this.ctx.query.page || 1,
-      row
+      row,
+      signed: this.ctx.query.signed === "signed" ? true : false
     });
     this.ctx.helper.responseFormatter({
       code: "1000",
