@@ -20,6 +20,6 @@ RUN yarn
 
 COPY . .
 
-CMD ["yarn","run","start"]
+CMD ["npm","run","start"]
 
 ENTRYPOINT [ "sh" ]
