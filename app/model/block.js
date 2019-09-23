@@ -13,8 +13,8 @@ module.exports = app => {
       type: DATE,
       field: "dateTime",
       get: function() {
-        const dateTime = this.getDataValue("dateTime");
-        return moment(dateTime, "YYYY-MM-DD HH:mm:ss").format('x');
+        const dateTime = this.getDataValue("block_timestamp");
+        return moment(dateTime, "YYYY-MM-DD HH:mm:ss").format('X');
       }
     },
     event_count: {
