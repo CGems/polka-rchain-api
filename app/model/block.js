@@ -1,3 +1,4 @@
+const moment = require("moment");
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
   const Block = app.model.define("data_block", {
@@ -8,7 +9,14 @@ module.exports = app => {
       field: "id"
     },
     hash: { type: STRING(66), allowNull: false },
-    block_timestamp: { type: DATE, field: "dateTime", defaultValue: null },
+    block_timestamp: {
+      type: DATE,
+      field: "dateTime",
+      get: function() {
+        const dateTime = this.getDataValue("dateTime");
+        return moment(dateTime, "YYYY-MM-DD HH:mm:ss").format('x');
+      }
+    },
     event_count: {
       type: INTEGER,
       field: "count_events",
