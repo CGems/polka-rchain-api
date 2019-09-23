@@ -20,6 +20,4 @@ RUN yarn
 
 COPY . .
 
-CMD ["npm","run","start"]
-
-ENTRYPOINT [ "sh" ]
+CMD ["npm","run","start","&&","node"]
