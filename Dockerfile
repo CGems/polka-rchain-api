@@ -20,4 +20,4 @@ COPY . .
 
 CMD ["yarn","run","start"]
 
-ENTRYPOINT [ "ssh" ]
+ENTRYPOINT [ "sh" ]
