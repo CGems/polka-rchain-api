@@ -4,18 +4,8 @@ const Service = require("egg").Service;
 
 class DashboardService extends Service {
   async getMetadata() {
-    return {
-      blockNum: "291322",
-      blockTime: "6",
-      count_account: "92",
-      count_event: "32959",
-      count_extrinsic: "432465",
-      count_signed_extrinsic: "629",
-      count_transfer: "171",
-      implName: "darwinia-node",
-      networkNode: "darwinia",
-      specVersion: "78"
-    };
+    const res = await this.app.model.BlockTotal.max('block_num');
+    return res;
   }
 
   async getDaily() {
