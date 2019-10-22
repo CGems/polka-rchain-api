@@ -3,7 +3,7 @@ module.exports = app => {
   const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
   const Extrinsic = app.model.define("data_extrinsic", {
     account_id: {
-      type: INTEGER,
+      type: STRING(64),
       field: "address",
       get: function() {
         let address = this.getDataValue("account_id");
@@ -12,8 +12,6 @@ module.exports = app => {
     },
     block_num: {
       type: INTEGER,
-      primaryKey: true,
-      autoIncrement: false,
       field: "block_id"
     },
     extrinsic_hash: {
@@ -51,8 +49,8 @@ module.exports = app => {
         return this.getDataValue("signature") || "";
       }
     },
-    signed: { type: BOOLEAN, allowNull: false },
-    success: { type: BOOLEAN, allowNull: false },
+    signed: { type: BOOLEAN },
+    success: { type: BOOLEAN },
     params: { type: JSON }
   });
   return Extrinsic;
