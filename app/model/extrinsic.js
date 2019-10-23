@@ -12,7 +12,9 @@ module.exports = app => {
     },
     block_num: {
       type: INTEGER,
-      field: "block_id"
+      field: "block_id",
+      primaryKey: true,
+      autoIncrement: false
     },
     extrinsic_hash: {
       type: STRING(64),
@@ -26,6 +28,8 @@ module.exports = app => {
     extrinsic_index: {
       type: STRING(12),
       field: "extrinsic_idx",
+      primaryKey: true,
+      autoIncrement: false,
       get: function() {
         return `${this.getDataValue("block_num")}-${this.getDataValue(
           "extrinsic_index"

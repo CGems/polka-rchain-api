@@ -14,7 +14,7 @@ module.exports = app => {
       field: "dateTime",
       get: function() {
         const dateTime = this.getDataValue("block_timestamp");
-        return moment(dateTime, "YYYY-MM-DD HH:mm:ss").format("X");
+        return moment(dateTime).format("X");
       }
     },
     event_count: {

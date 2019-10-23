@@ -1,7 +1,7 @@
 const moment = require("moment");
 module.exports = app => {
   const { STRING, INTEGER, DATE, BOOLEAN, DECIMAL } = app.Sequelize;
-  const Block = app.model.define("data_transfer", {
+  const Transfer = app.model.define("data_transfer", {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -24,7 +24,7 @@ module.exports = app => {
       type: DATE,
       get: function() {
         const dateTime = this.getDataValue("block_timestamp");
-        return moment(dateTime, "YYYY-MM-DD HH:mm:ss").format("X");
+        return moment(dateTime).format("X");
       }
     },
     extrinsic_index: {
@@ -55,5 +55,5 @@ module.exports = app => {
       type: BOOLEAN
     }
   });
-  return Block;
+  return Transfer;
 };

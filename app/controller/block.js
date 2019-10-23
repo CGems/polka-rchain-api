@@ -25,7 +25,32 @@ class BlockController extends Controller {
       key: this.ctx.params.key
     });
     if (data) {
-      this.ctx.helper.responseFormatter({ code: "1000", data });
+      let extrinsics = [];
+      let events = [];
+      if (data.extrinsics_count > 0) {
+        extrinsics = await this.app.model.Extrinsic.findAll({
+          where: {
+            block_num: data.block_num
+          }
+        });
+      }
+      if (data.event_count > 0) {
+        events = await this.app.model.Event.findAll({
+          where: {
+            block_num: data.block_num
+          }
+        });
+      }
+      this.ctx.helper.responseFormatter({
+        code: "1000",
+        data: {
+          ...data.get({
+            plain: true
+          }),
+          extrinsics,
+          events
+        }
+      });
     } else {
       this.ctx.helper.responseFormatter({ code: "1021" });
     }
