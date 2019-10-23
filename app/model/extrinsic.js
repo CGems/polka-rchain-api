@@ -25,16 +25,10 @@ module.exports = app => {
           : "";
       }
     },
-    extrinsic_index: {
-      type: STRING(12),
-      field: "extrinsic_idx",
+    extrinsic_idx: {
+      type: INTEGER,
       primaryKey: true,
-      autoIncrement: false,
-      get: function() {
-        return `${this.getDataValue("block_num")}-${this.getDataValue(
-          "extrinsic_index"
-        )}`;
-      }
+      autoIncrement: false
     },
     call_module: { type: STRING(64), field: "module_id" },
     call_module_function: {

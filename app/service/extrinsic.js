@@ -5,13 +5,20 @@ const Service = require("egg").Service;
 class ExtrinsicService extends Service {
   async getExtrinsicList({ page, row, signed }) {
     const offset = (page - 1) * row;
-    const res = await this.app.model.Extrinsic.findAndCountAll({
+    let res = await this.app.model.Extrinsic.findAndCountAll({
       offset,
       limit: row,
-      where:{
+      where: {
         signed
       },
       order: [["block_num", "DESC"]]
+    });
+    res.rows = res.rows.map(item => {
+      item = item.get({
+        plain: true
+      });
+      item.extrinsic_index = `${item.block_num}-${item.extrinsic_idx}`;
+      return item;
     });
     return res;
   }
@@ -28,7 +35,12 @@ class ExtrinsicService extends Service {
     const res = await this.app.model.Extrinsic.findOne({
       where: condition
     });
-    return res;
+    return {
+      ...res.get({
+        plain: true
+      }),
+      extrinsic_index: `${res.block_num}-${res.extrinsic_idx}`
+    };
   }
 }
 

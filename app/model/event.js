@@ -18,6 +18,9 @@ module.exports = app => {
         )}`;
       }
     },
+    extrinsic_idx: {
+      type: INTEGER
+    },
     module_id: { type: STRING(64) },
     event_id: { type: STRING(64) },
     params: {

@@ -33,6 +33,11 @@ class BlockController extends Controller {
             block_num: data.block_num
           }
         });
+        extrinsics = extrinsics.map(item => {
+          item = item.get({ plain: true });
+          item.extrinsic_index = `${item.block_num}-${item.extrinsic_idx}`;
+          return item;
+        });
       }
       if (data.event_count > 0) {
         events = await this.app.model.Event.findAll({

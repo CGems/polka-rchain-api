@@ -26,7 +26,25 @@ class ExtrinsicController extends Controller {
       key: this.ctx.params.key
     });
     if (data) {
-      this.ctx.helper.responseFormatter({ code: "1000", data });
+      const transfer = await this.app.model.Transfer.findOne({
+        where: {
+          hash: data.extrinsic_hash.substring(2)
+        }
+      });
+      const events = await this.app.model.Event.findAll({
+        where: {
+          block_id: data.block_num,
+          extrinsic_idx: data.extrinsic_idx
+        }
+      });
+      this.ctx.helper.responseFormatter({
+        code: "1000",
+        data: {
+          ...data,
+          transfer,
+          events
+        }
+      });
     } else {
       this.ctx.helper.responseFormatter({ code: "1021" });
     }
