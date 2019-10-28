@@ -37,7 +37,8 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
-    errorDescs: require("./error_zh-cn.json")
+    errorDescs: require("./error_zh-cn.json"),
+    substrateAddressType: 42,
   };
 
   return {

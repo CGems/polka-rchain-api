@@ -8,11 +8,17 @@ class ExtrinsicController extends Controller {
     if (row > 200) {
       row = 200;
     }
-    const { rows, count } = await this.ctx.service.extrinsic.getExtrinsicList({
+    const condition = {
       page: +this.ctx.query.page || 1,
       row,
-      signed: this.ctx.query.signed === "signed" ? true : false
-    });
+      address: this.ctx.query.address
+    };
+    if (this.ctx.query.signed === "signed") {
+      condition.signed = true;
+    }
+    const { rows, count } = await this.ctx.service.extrinsic.getExtrinsicList(
+      condition
+    );
     this.ctx.helper.responseFormatter({
       code: "1000",
       data: {

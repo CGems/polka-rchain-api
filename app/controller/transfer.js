@@ -10,7 +10,8 @@ class TransferController extends Controller {
     }
     const { rows, count } = await this.ctx.service.transfer.getTransferList({
       page: +this.ctx.query.page || 1,
-      row
+      row,
+      address: this.ctx.query.address
     });
     this.ctx.helper.responseFormatter({
       code: "1000",
@@ -18,6 +19,13 @@ class TransferController extends Controller {
         rows,
         count
       }
+    });
+  }
+  async getDaily() {
+    const data = await this.ctx.service.transfer.getDaily();
+    this.ctx.helper.responseFormatter({
+      code: "1000",
+      data
     });
   }
 }

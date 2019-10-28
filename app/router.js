@@ -11,8 +11,10 @@ module.exports = app => {
   app.router.get("/api/v1/extrinsic/:key", app.controller.extrinsic.getExtrinsicInfo);
 
   app.router.get("/api/v1/transfer", app.controller.transfer.getTransfers);
+  app.router.get("/api/v1/daily", app.controller.transfer.getDaily);
+
+  app.router.get("/api/v1/account/:address", app.controller.account.getAccountInfo);
 
   app.router.get("/api/v1/metadata", app.controller.dashboard.getMetadata);
 
-  app.router.get("/api/v1/daily", app.controller.dashboard.getDaily);
 };

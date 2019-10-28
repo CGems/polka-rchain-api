@@ -1,18 +1,24 @@
 "use strict";
 
 const Service = require("egg").Service;
-
+const { addressToAddressId, setNetworkDefault } = require("substrate-ss58");
 class ExtrinsicService extends Service {
-  async getExtrinsicList({ page, row, signed }) {
+  async getExtrinsicList({ page, row, signed, address }) {
+    setNetworkDefault(this.app.config.substrateAddressType);
     const offset = (page - 1) * row;
-    let res = await this.app.model.Extrinsic.findAndCountAll({
+    const condition = {
       offset,
       limit: row,
-      where: {
-        signed
-      },
+      where: {},
       order: [["block_num", "DESC"]]
-    });
+    };
+    if (signed) {
+      condition.where.signed = true;
+    }
+    if (address) {
+      condition.where.address = addressToAddressId(address).substring(2);
+    }
+    let res = await this.app.model.Extrinsic.findAndCountAll(condition);
     res.rows = res.rows.map(item => {
       item = item.get({
         plain: true

@@ -46,6 +46,11 @@ class BlockController extends Controller {
           }
         });
       }
+      let logs = await this.app.model.Log.findAll({
+        where: {
+          block_num: data.block_num
+        }
+      });
       this.ctx.helper.responseFormatter({
         code: "1000",
         data: {
@@ -53,7 +58,8 @@ class BlockController extends Controller {
             plain: true
           }),
           extrinsics,
-          events
+          events,
+          logs
         }
       });
     } else {

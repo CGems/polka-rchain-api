@@ -1,14 +1,18 @@
-const { addressIdToAddress } = require("substrate-ss58");
+const { addressIdToAddress, setNetworkDefault } = require("substrate-ss58");
 module.exports = app => {
+  setNetworkDefault(app.config.substrateAddressType);
   const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
   const Extrinsic = app.model.define("data_extrinsic", {
     account_id: {
-      type: STRING(64),
+      type: STRING(48),
       field: "address",
       get: function() {
         let address = this.getDataValue("account_id");
         return address ? addressIdToAddress(address) : "";
       }
+    },
+    address: {
+      type: STRING(64)
     },
     block_num: {
       type: INTEGER,

@@ -37,11 +37,11 @@ module.exports = app => {
       }
     },
     from: {
-      type: STRING(64),
+      type: STRING(48),
       field: "transfer_from"
     },
     to: {
-      type: STRING(64),
+      type: STRING(48),
       field: "transfer_to"
     },
     module: {

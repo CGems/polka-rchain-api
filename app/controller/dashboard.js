@@ -10,13 +10,6 @@ class DashboardController extends Controller {
       data
     });
   }
-  async getDaily() {
-    const data = await this.ctx.service.dashboard.getDaily();
-    this.ctx.helper.responseFormatter({
-      code: "1000",
-      data
-    });
-  }
 }
 
 module.exports = DashboardController;
