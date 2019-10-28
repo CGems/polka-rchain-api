@@ -22,7 +22,8 @@ class TransferController extends Controller {
     });
   }
   async getDaily() {
-    const data = await this.ctx.service.transfer.getDaily();
+    const { start, end } = this.ctx.query;
+    const data = await this.ctx.service.transfer.getDaily({ start, end });
     this.ctx.helper.responseFormatter({
       code: "1000",
       data
