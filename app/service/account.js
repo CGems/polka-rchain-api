@@ -22,8 +22,6 @@ class AccountService extends Service {
         balance: account.balance,
         account_index: accountIndex.id
       };
-    } else {
-      this.ctx.helper.responseFormatter({ code: "1021" });
     }
   }
 }

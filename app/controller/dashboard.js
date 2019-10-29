@@ -10,6 +10,19 @@ class DashboardController extends Controller {
       data
     });
   }
+  async checkHash() {
+    const data = await this.ctx.service.dashboard.checkHash(
+      this.ctx.query.hash
+    );
+    if (data) {
+      this.ctx.helper.responseFormatter({
+        code: "1000",
+        data
+      });
+    } else {
+      this.ctx.helper.responseFormatter({ code: "1021" });
+    }
+  }
 }
 
 module.exports = DashboardController;

@@ -17,4 +17,6 @@ module.exports = app => {
 
   app.router.get("/api/v1/metadata", app.controller.dashboard.getMetadata);
 
+  app.router.get("/api/v1/checkHash", app.controller.dashboard.checkHash);
+
 };

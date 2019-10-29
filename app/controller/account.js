@@ -7,10 +7,14 @@ class AccountController extends Controller {
     const accountInfo = await this.ctx.service.account.getAccountInfo({
       address: this.ctx.params.address
     });
-    this.ctx.helper.responseFormatter({
-      code: "1000",
-      data: accountInfo
-    });
+    if (accountInfo) {
+      this.ctx.helper.responseFormatter({
+        code: "1000",
+        data: accountInfo
+      });
+    } else {
+      this.ctx.helper.responseFormatter({ code: "1021" });
+    }
   }
 }
 
