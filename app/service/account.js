@@ -11,16 +11,20 @@ class AccountService extends Service {
     });
     if (account) {
       account = account.get({ plain: true });
-      let accountIndex = await this.ctx.model.AccountIndex.findOne({
-        where: {
-          account_id: account.id
-        }
-      });
+      let [accountIndex, nonce] = await Promise.all([
+        this.ctx.model.AccountIndex.findOne({
+          where: {
+            account_id: account.id
+          }
+        }),
+        this.ctx.model.Extrinsic.count({ where: { address: account.id } })
+      ]);
       accountIndex = accountIndex.get({ plain: true });
       return {
         address: account.address,
         balance: account.balance,
-        account_index: accountIndex.id
+        account_index: accountIndex.id,
+        nonce
       };
     }
   }
